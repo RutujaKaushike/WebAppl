@@ -7,21 +7,10 @@ import com.sun.speech.freetts.audio.AudioPlayer;
 import com.sun.speech.freetts.audio.SingleFileAudioPlayer;
 import javax.sound.sampled.AudioFileFormat.Type;
 
-/**
- * Simple program to demonstrate the use of the FreeTTS speech
- * synthesizer.  This simple program shows how to use FreeTTS
- * without requiring the Java Speech API (JSAPI).
- */
-public class FreeTTSHelloWorld {
-
-    /**
-     * Example of how to list all the known voices.
-     */
+public class WordToSpeech {
 
 
     public static void main(String[] args) {
-
-        // listAllVoices();
 
         FreeTTS freetts;
         AudioPlayer audioPlayer = null;
@@ -30,8 +19,7 @@ public class FreeTTSHelloWorld {
         System.out.println();
         System.out.println("Using voice: " + voiceName);
 
-        /* The VoiceManager manages all the voices for FreeTTS.
-         */
+
         VoiceManager voiceManager = VoiceManager.getInstance();
         Voice helloVoice = voiceManager.getVoice(voiceName);
 
@@ -42,21 +30,17 @@ public class FreeTTSHelloWorld {
             System.exit(1);
         }
 
-        /* Allocates the resources for the voice.
-         */
+
         helloVoice.allocate();
 
-        /* Synthesize speech.
-         */
-//create a audioplayer to dump the output file
-        audioPlayer = new SingleFileAudioPlayer("D://Softwares",Type.WAVE);
-        //attach the audioplayer
+
+        audioPlayer = new SingleFileAudioPlayer("D://Projects//WebAppl//web//Subway",Type.WAVE);
+
         helloVoice.setAudioPlayer(audioPlayer);
 
 
 
-        helloVoice.speak("Thank you for giving me a voice. "
-                + "I'm so glad to say hello to this world.");
+        helloVoice.speak("Subway");
 
 
 
