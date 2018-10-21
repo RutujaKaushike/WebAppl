@@ -170,7 +170,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="ThemeFile.html">HOME</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="ThemeFile.html">CONTACT</a></li>
                 <LI><a href="http://localhost:8080/Listing?">EXPLORE</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li> <!-- ADD SEARCH.HTML HERE -->
             </ul>
