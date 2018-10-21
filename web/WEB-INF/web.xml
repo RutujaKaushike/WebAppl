@@ -8,4 +8,13 @@
             <welcome-file>First.html</welcome-file>
         </welcome-file-list>
 
+     <servlet>
+        <servlet-name>Listing</servlet-name>
+        <servlet-class>com.operations.Listing</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Listing</servlet-name>
+        <url-pattern>/Listing</url-pattern>
+    </servlet-mapping>
 </web-app>

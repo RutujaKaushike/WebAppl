@@ -19,6 +19,7 @@ public class ConnectionManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(connection);
         return connection;
 		
 	}

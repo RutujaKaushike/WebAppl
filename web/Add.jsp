@@ -1,5 +1,3 @@
-<%@ page import="com.restaurant.Restaurant" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font: 400 15px/1.8 Lato, sans-serif;
@@ -153,6 +152,7 @@
         textarea {
             resize: none;
         }
+
     </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -169,49 +169,49 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="ThemeFile.html">HOME</a></li>
+                <li><a href="#myPage">HOME</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <LI><a href="http://localhost:8080/Listing?">EXPLORE</a></li>
+                <LI><a href="#ADD">EXPLORE</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li> <!-- ADD SEARCH.HTML HERE -->
             </ul>
         </div>
     </div>
 </nav>
-<br>
-<br>
-<br>
-<br>
-<% List<Restaurant> volist=(List) request.getAttribute("all");
-    %>
+</br>
+</br>
 
-<table align="center" style="text-align:center;" class="table table-striped">
-    <thead>
-    <tr>
+</head>
+<script>
+    function doRecord()
+    {
+        var name=$("#Restaurant_Name").val();
+        window.open("Record.jsp?rest="+name);
+    }
+</script>
+<script src="jquery-3.3.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="container">
 
-        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Restaurant Name</th>
-        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Say It!</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for(Restaurant rest:volist)
-    { %>
-    <tr>
-        <td scope="row"> <%= rest.getRname() %></td>
-        <td><audio controls><source src="<%=rest.getRname()+".mp3"%>" type="audio/mpeg"></audio></td>
-    </tr>
-    <%} %>
-    </tbody>
-</table>
+    <h2>Register here!</h2>
+    <form>
+        <div class="form-group">
+            <label for="Restaurant_Name">Restaurant Name</label>
+            <input type="text" class="form-control" id="Restaurant_Name" placeholder="Enter your restaurant's name" name="Restaurant_Name">
 
-    <div class="col-md-12 form-group">
-        <form action="http://localhost:8080/Add.jsp?" >
-            <button class="btn pull-right" type="submit">Add your restaurant!</button>
-        </form>
-    </div>
+        </div>
+        <label> How do you pronounce it? </label>
+        <div class="radio">
+            <label><input type="radio" name="optradio" checked>Let us do it!</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="optradio" onclick="doRecord()">Record an Audio</label>
+        </div>
 
-<br>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+
 </body>
 </html>
-
-
 

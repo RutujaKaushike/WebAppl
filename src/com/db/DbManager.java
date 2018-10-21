@@ -9,12 +9,14 @@ public class DbManager {
 
 	Connection connection = null;
 
-	public ResultSet find(String query) {
+	public ResultSet find(String query) throws SQLException {
 		ConnectionManager connectionManager = new ConnectionManager();
-		connection = connectionManager.getConnection();
+
 		ResultSet resultset = null;
+		Statement statement =null;
 		try {
-			Statement statement = connection.createStatement();
+			connection = connectionManager.getConnection();
+			statement = connection.createStatement();
 			resultset = statement.executeQuery(query);
 
 		} catch (SQLException e) {
@@ -25,19 +27,19 @@ public class DbManager {
 
 	}
 
-	public void save(String query) {
-		ConnectionManager connectionManager = new ConnectionManager();
-		connection = connectionManager.getConnection();
+    public void save(String query) {
+        ConnectionManager connectionManager = new ConnectionManager();
+        connection = connectionManager.getConnection();
 
-		try {
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(query);
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
 	public void closeConnection() {
 		try {

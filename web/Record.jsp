@@ -1,9 +1,18 @@
-<%@ page import="com.restaurant.Restaurant" %>
-<%@ page import="java.util.List" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Radz
+  Date: 10/21/2018
+  Time: 2:29 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <title>Record</title>
+    <script src="audiodisplay.js"></script>
+    <script src="recorder.js"></script>
+    <script src="main.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -169,9 +178,9 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="ThemeFile.html">HOME</a></li>
+                <li><a href="#myPage">HOME</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <LI><a href="http://localhost:8080/Listing?">EXPLORE</a></li>
+                <LI><a href="#ADD">EXPLORE</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li> <!-- ADD SEARCH.HTML HERE -->
             </ul>
         </div>
@@ -181,37 +190,76 @@
 <br>
 <br>
 <br>
-<% List<Restaurant> volist=(List) request.getAttribute("all");
-    %>
+<body>
+<style>
 
-<table align="center" style="text-align:center;" class="table table-striped">
-    <thead>
-    <tr>
+    body {
+        font: 14pt Arial, sans-serif;
+        background: lightgrey;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        margin: 0 0;
+    }
 
-        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Restaurant Name</th>
-        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Say It!</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for(Restaurant rest:volist)
-    { %>
-    <tr>
-        <td scope="row"> <%= rest.getRname() %></td>
-        <td><audio controls><source src="<%=rest.getRname()+".mp3"%>" type="audio/mpeg"></audio></td>
-    </tr>
-    <%} %>
-    </tbody>
-</table>
+    canvas {
+        display: inline-block;
+        background: #202020;
+        width: 95%;
+        height: 45%;
+        box-shadow: 0px 0px 10px blue;
+    }
+    #controls {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        height: 20%;
+        width: 100%;
+    }
+    #record { height: 15vh; }
+    #record.recording {
+        background: red;
+        background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+        background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+        background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%);
+    }
+    #save, #save img { height: 10vh; }
+    #save { opacity: 0.25;}
+    #save[download] { opacity: 1;}
+    #viz {
+        height: 80%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    @media (orientation: landscape) {
+        body { flex-direction: row;}
+        #controls { flex-direction: column; height: 100%; width: 10%;}
+        #viz { height: 100%; width: 90%;}
+    }
 
-    <div class="col-md-12 form-group">
-        <form action="http://localhost:8080/Add.jsp?" >
-            <button class="btn pull-right" type="submit">Add your restaurant!</button>
-        </form>
-    </div>
+</style>
+</br>
+<script>
+    function exitWindow(){
+        window.close();
+    }
+</script>
+<div id="viz">
+    <canvas id="analyser" width="1024" height="500"></canvas>
+    <canvas id="wavedisplay" width="1024" height="500"></canvas>
+</div>
+<div id="controls">
+    <img id="record" src="mic128.png" onclick="toggleRecording(this);">
+    <a id="save" href="#"><img src="https://www.freeiconspng.com/uploads/downloads-icon-15.png"></a>
 
-<br>
+        <button class="btn pull-right" onclick="exitWindow()">Done</button>
+
+</div>
+
 </body>
 </html>
-
-
-
